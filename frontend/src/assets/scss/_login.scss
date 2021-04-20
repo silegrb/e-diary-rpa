@@ -1,0 +1,25 @@
+.login-container {
+  height: 300px;
+  background: linear-gradient(to top, white 10%, transparent 100%);
+  border: none;
+  color: white;
+  letter-spacing: 2px;
+  font-size: 16px;
+}
+
+.login-button {
+  background-color: black;
+  color: white;
+
+  &:hover {
+    background-color: black;
+  }
+}
+
+.login-toaster {
+  font-size: 14px!important;
+}
+
+.login-input {
+  font-weight: bolder;
+}
