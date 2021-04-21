@@ -47,7 +47,7 @@ const App = () => (
       </Row>
       <Row className="w-100">
         <Col xs={12} className="d-flex justify-content-center pb-3">
-          {`Razvoj poslovnih aplikacija | Verzija ${version}`}
+          {`Razvoj poslovnih aplikacija | Version  ${version}`}
         </Col>
       </Row>
     </div>
