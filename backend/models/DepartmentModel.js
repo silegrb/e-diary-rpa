@@ -2,6 +2,8 @@ const mongoose = require('mongoose');
 
 const { Schema } = mongoose;
 
+console.log('test');
+
 const departmentSchema = new Schema({
     name: {
         type: String,
