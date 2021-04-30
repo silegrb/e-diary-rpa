@@ -17,7 +17,7 @@ const userSchema = new Schema({
     },
     role: {
         type: String,
-        enum: ['ROLE_STUDENT', 'ROLE_TEACHER'],
+        enum: ['ROLE_STUDENT', 'ROLE_TEACHER','ROLE_ADMIN'],
         required: true,
     },
     name: {
@@ -30,6 +30,10 @@ const userSchema = new Schema({
         trim: true,
         required: true,
     },
+    departmentID: {
+        type: Schema.Types.ObjectId,
+        ref: 'Department'
+    }
 });
 
 const User = mongoose.model('User', userSchema);

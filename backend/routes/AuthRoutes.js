@@ -10,17 +10,23 @@ router.post('/login', async ({body}, res) => {
         const {username, password} = body;
         if(!username || !password) return res.status(400).json({message: 'Empty fields'});
         const user = await User.findOne({username});
-        if(!user) return res.status(400).json({message: 'Invalid credentials'});
+        if(!user) return res.status(400).json({message: 'Invalid username or password'});
         const passwordMatched = await bcrypt.compare(password, user.password);
-        if (!passwordMatched) return res.status(400).json({message: 'Invalid credentials'});
+        if (!passwordMatched) return res.status(400).json({message: 'Invalid username or password'});
         const token = jwt.sign({ id: user._id, role: user.role }, JWT_SECRET, { expiresIn: 604800 });
         if(!token) return res.status(400).json({message: 'Something went wrong'});
+        if(user.role === 'ROLE_ADMIN')
+            return res.status(400).json(
+                {
+                    message: 'Invalid username or password',
+                    postmanPurposeToken: token
+                }
+                );
         user.password = null;
         res.json({user, token});
     }catch (e){
         res.status(400).json({message: e.message || 'Something went wrong'});
     }
-
 });
 
 module.exports = router;

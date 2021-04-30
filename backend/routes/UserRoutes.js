@@ -3,16 +3,16 @@ const bcrypt = require('bcryptjs');
 const auth = require('../middlewares/auth');
 const User = require('../models/UserModel');
 
-router.get('/', auth(), async(req,res) => {
+router.get('/', auth(['ROLE_ADMIN']), async(req,res) => {
     try{
         const users = await User.find();
-        res.json({users});
+        res.json(users);
     }catch (e){
         res.status(400).json({message: e.message || 'Something went wrong'});
     }
 });
 
-router.post('/create',  auth(), async({body}, res) => {
+router.post('/create',  auth(['ROLE_ADMIN']), async({body}, res) => {
     try {
         const newUser = new User({...body});
 
@@ -28,13 +28,12 @@ router.post('/create',  auth(), async({body}, res) => {
     }
 });
 
-router.delete('/:username',  auth(), async ({params}, res) => {
+router.delete('/:username',  auth(['ROLE_ADMIN']), async ({params}, res) => {
     try{
         await User.findOneAndDelete({username: params.username || ''});
-        res.json();
+        res.json({message:'User deleted'});
     }catch (e){
         res.status(400).json({message: e.message || 'Something went wrong'});
-
     }
 })
 

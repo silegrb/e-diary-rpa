@@ -9,25 +9,33 @@ import {
 import { ToastContainer, toast } from 'react-toastify';
 import { Fade } from 'react-reveal';
 import Loader from './Loader';
+import { postLogin } from '../client/auth';
+import { setUserSession } from '../utils/auth';
 
 const Login = () => {
-  // eslint-disable-next-line no-unused-vars
-  const [username, setUsername] = useState();
-  // eslint-disable-next-line no-unused-vars
-  const [password, setPassword] = useState();
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
 
-  // eslint-disable-next-line no-unused-vars
-  const notifyError = () => toast.error('The username or password you entered is incorrect');
-
-  const notifySuccess = () => toast.success('Login successfull');
+  const notifyError = () => toast.error(error);
+  const notifySuccess = () => toast.success('Login successful');
 
   const handleLogin = () => {
-    setLoading(true);
-    setTimeout(() => {
-      notifySuccess();
+    (async () => {
+      setLoading(true);
+      try {
+        const { data } = await postLogin({ username, password });
+        setUserSession({ ...data });
+        notifySuccess();
+      } catch (e) {
+        notifyError();
+        setUsername('');
+        setPassword('');
+        setError(e.response?.data?.message || 'Something went wrong');
+      }
       setLoading(false);
-    }, 2000);
+    })();
   };
 
   return (
@@ -42,13 +50,22 @@ const Login = () => {
                   Username
                 </Col>
                 <Col xs={{ offset: 1, size: 10 }} className="pb-1">
-                  <Input className="login-input" />
+                  <Input
+                    className="login-input"
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
+                  />
                 </Col>
                 <Col xs={{ offset: 1, size: 10 }}>
                   Password
                 </Col>
                 <Col xs={{ offset: 1, size: 10 }}>
-                  <Input type="password" className="login-input" />
+                  <Input
+                    type="password"
+                    className="login-input"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                  />
                 </Col>
                 <Col xs={{ offset: 1, size: 10 }} className="d-flex justify-content-center pt-3">
                   <Button onClick={handleLogin} className="w-50 login-button">Login</Button>

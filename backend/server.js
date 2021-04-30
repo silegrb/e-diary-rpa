@@ -17,9 +17,13 @@ mongoose.connection.once('open', () => {
 
 const UserRouter = require('./routes/UserRoutes');
 const AuthRouter = require('./routes/AuthRoutes');
+const DepartmentRouter = require('./routes/DepartmentRoutes');
+const SubjectRouter = require('./routes/SubjectRoutes');
 
 app.use('/users', UserRouter);
 app.use('/auth', AuthRouter);
+app.use('/departments', DepartmentRouter);
+app.use('/subjects', SubjectRouter);
 
 app.listen(PORT || 5000, () => {
     console.log(`server_running-port-${PORT || 5000}`);
