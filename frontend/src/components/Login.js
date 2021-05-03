@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import {
   Button,
   Card,
@@ -11,28 +12,26 @@ import { Fade } from 'react-reveal';
 import Loader from './Loader';
 import { postLogin } from '../client/auth';
 import { setUserSession } from '../utils/auth';
+import { getUserRole } from '../utils/user';
 
-const Login = () => {
+const Login = ({ handleLogIn }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
 
-  const notifyError = () => toast.error(error);
-  const notifySuccess = () => toast.success('Login successful');
+  const notifyError = (error) => toast.error(error);
 
-  const handleLogin = () => {
+  const handleTryLogIn = () => {
     (async () => {
       setLoading(true);
       try {
         const { data } = await postLogin({ username, password });
         setUserSession({ ...data });
-        notifySuccess();
+        handleLogIn(getUserRole());
       } catch (e) {
-        notifyError();
         setUsername('');
         setPassword('');
-        setError(e.response?.data?.message || 'Something went wrong');
+        notifyError(e.response?.data?.message || 'Something went wrong');
       }
       setLoading(false);
     })();
@@ -68,7 +67,7 @@ const Login = () => {
                   />
                 </Col>
                 <Col xs={{ offset: 1, size: 10 }} className="d-flex justify-content-center pt-3">
-                  <Button onClick={handleLogin} className="w-50 login-button">Login</Button>
+                  <Button onClick={handleTryLogIn} className="w-50 login-button">Log In</Button>
                 </Col>
               </Row>
             )}
@@ -76,6 +75,10 @@ const Login = () => {
       </Fade>
     </Container>
   );
+};
+
+Login.propTypes = {
+  handleLogIn: PropTypes.func.isRequired,
 };
 
 export default Login;

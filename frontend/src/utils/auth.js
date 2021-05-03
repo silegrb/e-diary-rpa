@@ -1,6 +1,6 @@
 export const setUserSession = ({ token, user }) => {
   localStorage.setItem('token', token);
-  localStorage.setItem('user', user);
+  localStorage.setItem('user', JSON.stringify(user));
 };
 
 export const unsetUserSession = () => {

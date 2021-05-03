@@ -1,0 +1,26 @@
+.navbar-container {
+  z-index: 1000!important;
+}
+
+.log-out-button {
+  background-color: #ed2939;
+  color: white;
+  height: 40px;
+
+  &:hover {
+  background-color: #ed2939;
+  }
+}
+
+.navbar-avatar {
+  border-radius: 50%;
+  height: 65px;
+  width: 65px;
+  background-color: #3792fe;
+  font-size: 30px;
+}
+
+.navbar-welcome {
+  font-size: 45px;
+  line-height: 45px;
+}
