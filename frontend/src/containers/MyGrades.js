@@ -5,18 +5,19 @@ import { getUserId } from '../utils/user';
 import { fetchStudentGrades } from '../client/grade';
 import MyGrade from '../components/MyGrade';
 import Loader from '../components/Loader';
+import { roundToTwoDecimals } from '../utils/calculations';
 
 const MyGrades = () => {
   const id = getUserId();
   // eslint-disable-next-line no-unused-vars
-  const [grades, setGrades] = useState([]);
+  const [subjects, setSubjects] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     (async () => {
       setLoading(true);
       const { data } = await fetchStudentGrades(id);
-      setGrades(data);
+      setSubjects(data);
       setLoading(false);
     })();
   }, []);
@@ -26,9 +27,19 @@ const MyGrades = () => {
       {loading ? <Loader />
         : (
           <Row className="w-100 m-0">
-            <Col xs={12} className="my-grades-title pb-3 d-flex align-items-center">My grades</Col>
-            {/* eslint-disable-next-line no-unused-vars */}
-            {grades.map(({ name, grades }, index) => (
+            <Col xs={12} className="my-grades-title pb-3 d-flex align-items-center justify-content-between">
+              <span>My grades</span>
+              <span>
+                {`Average: ${
+                  subjects.length && subjects.find(({ grades }) => grades.length)
+                    ? roundToTwoDecimals(subjects.reduce((acc, { grades }) => acc + grades.reduce(
+                      (gradeAcc, { value }) => gradeAcc + value, 0,
+                    ), 0) / subjects.reduce((acc, { grades }) => acc + grades.length, 0))
+                    : 0
+                }`}
+              </span>
+            </Col>
+            {subjects.map(({ name, grades }, index) => (
               <Col
                 xs={12}
                 className={cs({
