@@ -1,0 +1,46 @@
+.department-details-container {
+  overflow-y: auto;
+  padding-top: 75px!important;
+}
+
+.department-details-title {
+  font-size: 30px;
+}
+
+.department-student-item {
+  background-color: transparent;
+  color: white;
+  border-radius: 5px;
+  border: 1px solid white;
+}
+
+.back-to-departments-button {
+  background-color: white;
+  color: black;
+
+  &:hover {
+    background-color: white;
+    color: black;
+  }
+}
+
+.grade-button {
+  background-color: limegreen;
+  color: white;
+
+  &:hover {
+    background-color: limegreen;
+    color: white;
+  }
+}
+
+.grade-button-lg {
+  background-color: limegreen;
+  color: white;
+  font-size: 20px;
+
+  &:hover {
+    background-color: limegreen;
+    color: white;
+  }
+}

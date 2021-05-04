@@ -1,0 +1,75 @@
+.my-grades-container {
+  overflow-y: auto;
+  padding-top: 75px!important;
+}
+
+.my-grades-title {
+  font-size: 30px;
+}
+
+.my-grade-container {
+  background-color: transparent;
+  color: white;
+  border-radius: 5px;
+  border: 1px solid white;
+}
+
+.circle {
+  border: 2px solid white;
+  height: 30px;
+  width: 30px;
+  border-radius: 50%;
+}
+
+.grade-student-title {
+  font-size: 30px;
+}
+
+.subject-picker {
+  border: 1px solid white;
+  border-radius: 5px;
+  background-color: transparent;
+  color: white;
+  outline: none !important;
+  box-shadow: none !important;
+
+  &:hover,&:active,&:focus{
+    border: 1px solid white;
+    border-radius: 5px;
+    background-color: transparent;
+    color: white;
+    outline: none !important;
+    box-shadow: none !important;
+  }
+}
+
+.no-subject-picked {
+  color: white;
+  opacity: 0.3;
+}
+
+.subject-items-container {
+  padding: 0;
+  background-color: white;
+  border-radius: 5px;
+  border: 2px solid white;
+}
+
+.subject-item {
+  background-color: white;
+  color: black;
+
+  &:hover{
+    background-color: white;
+    color: black;
+  }
+}
+
+.border-top-white {
+  border-top: 1px solid black;
+}
+
+.students-to-grade-container {
+  max-height: 200px;
+  overflow-y: auto;
+}

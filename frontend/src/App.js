@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Row, Col } from 'reactstrap';
 import { Fade } from 'react-reveal';
 import {
@@ -12,9 +12,10 @@ import { version } from '../package.json';
 import { getDefaultRedirect, getUserRole } from './utils/user';
 import Login from './components/Login';
 import Departments from './containers/Departments';
-import MyGrades from './containers/MyGrades';
+import Grades from './containers/Grades';
 import Navbar from './components/Navbar';
 import { unsetUserSession } from './utils/auth';
+import DepartmentDetails from './containers/DepartmentDetails';
 
 const App = () => {
   const [role, setRole] = useState(getUserRole());
@@ -31,17 +32,13 @@ const App = () => {
     setRole(null);
   };
 
-  useEffect(() => {
-    console.log(role);
-  }, [role]);
-
   return (
     <div className="root">
       <div className="app-container d-flex flex-column">
         <ToastContainer className="login-toaster" autoClose={2000} />
         {role && <Navbar handleLogOut={handleLogOut} />}
         <Row className="w-100 flex-grow-1">
-          <Col xs={role ? 12 : 5} className="d-flex justify-content-center align-items-center pl-5">
+          <Col xs={12} lg={role ? 12 : 5} className="d-flex justify-content-center align-items-center pl-5">
             <Router history={createBrowserHistory()}>
               <Switch>
                 <Route path="/" exact>
@@ -51,15 +48,19 @@ const App = () => {
                   {role === ROLES.TEACHER
                     ? <Departments /> : <Redirect to="/" />}
                 </Route>
+                <Route path="/departments/:id" exact>
+                  {role === ROLES.TEACHER
+                    ? <DepartmentDetails /> : <Redirect to="/" />}
+                </Route>
                 <Route path="/my-grades" exact>
-                  {role === ROLES.STUDENT ? <MyGrades /> : <Redirect to="/" />}
+                  {role === ROLES.STUDENT ? <Grades /> : <Redirect to="/" />}
                 </Route>
                 <Redirect to={getDefaultRedirect()} exact />
               </Switch>
             </Router>
           </Col>
           {!role && (
-          <Col xs={{ offset: 2, size: 5 }} className="d-flex justify-content-center align-items-center pr-5">
+          <Col xs={{ offset: 2, size: 5 }} className="d-none d-lg-flex justify-content-center align-items-center pr-5">
             <Row className="w-100 m-0 p-0">
               <Col xs={12} className="d-flex justify-content-center app-e-diary">
                 <Fade right>E-DIARY</Fade>
@@ -80,8 +81,8 @@ const App = () => {
           </Col>
           )}
         </Row>
-        <Row className="w-100">
-          <Col xs={12} className="d-flex justify-content-center pb-3">
+        <Row className="w-100 m-0 p-0">
+          <Col xs={12} className="d-flex justify-content-center p-0 py-3">
             {`Razvoj poslovnih aplikacija | Version  ${version}`}
           </Col>
         </Row>

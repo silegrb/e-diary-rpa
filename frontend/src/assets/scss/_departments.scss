@@ -1,0 +1,22 @@
+.my-departments-container {
+  overflow-y: auto;
+  padding-top: 75px!important;
+}
+
+.my-departments-title {
+  font-size: 30px;
+}
+
+.my-department-container {
+  background-color: transparent;
+  border: 1px solid white;
+}
+
+.my-department-avatar {
+  width: 75px;
+  height: 75px;
+  font-size: 25px;
+  border-radius: 5px;
+  background-color: hotpink;
+  color: white;
+}
