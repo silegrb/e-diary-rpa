@@ -5,6 +5,7 @@ import {
 } from 'reactstrap';
 import { ArrowLeft } from 'react-feather';
 import cs from 'classnames';
+import { toast, ToastContainer } from 'react-toastify';
 import Loader from '../components/Loader';
 import { fetchDepartmentDetails } from '../client/department';
 import { roundToTwoDecimals } from '../utils/calculations';
@@ -22,8 +23,10 @@ const DepartmentDetails = () => {
   const [student, setStudent] = useState(null);
   const [professorSubjects, setProfessorSubjects] = useState([]);
 
-  const handleUpdateStudentsList = async () => {
+  const handleUpdateStudentsList = async (studentID) => {
     const { data } = await fetchDepartmentDetails(id);
+    const { name, surname } = data.students.find(({ id }) => id === studentID);
+    toast.success(`${name} ${surname} graded successfully`);
     setDetails(data);
   };
 
@@ -45,6 +48,7 @@ const DepartmentDetails = () => {
 
   return (
     <Container className="h-100 w-100 p-0 m-0 department-details-container">
+      <ToastContainer className="toaster" autoClose={2000} />
       {loading ? <Loader />
         : (
           <Row className="w-100 m-0">

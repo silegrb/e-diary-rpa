@@ -41,7 +41,7 @@ const Login = ({ handleLogIn }) => {
     <Container>
       <Fade left className="w-100">
         <Card className="login-container d-flex justify-content-center align-items-center">
-          <ToastContainer className="login-toaster" autoClose={2000} />
+          <ToastContainer className="toaster" autoClose={2000} />
           {loading ? <Loader />
             : (
               <Row>

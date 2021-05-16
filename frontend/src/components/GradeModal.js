@@ -60,7 +60,6 @@ const GradeModal = ({
           professorID: getUserId(),
           subjectID: selectedSubject.id,
         });
-        handleUpdateStudentsList();
         setStep(STEPS.DONE);
       })();
     } catch (e) {
@@ -73,6 +72,7 @@ const GradeModal = ({
     if (step === STEPS.DONE) {
       setTimeout(() => {
         handleCancelModal();
+        handleUpdateStudentsList(selectedStudentId);
       }, MODAL_WAIT_TIME);
     }
   }, [step]);
