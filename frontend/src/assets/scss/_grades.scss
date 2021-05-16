@@ -79,3 +79,9 @@
   height: 20px;
   color: #ed2939;
 }
+
+@media only screen and (max-width: 767px) {
+  .my-grades-title {
+    font-size: 24px;
+  }
+}

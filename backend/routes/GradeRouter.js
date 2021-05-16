@@ -28,7 +28,7 @@ router.get('/student-grades/:id',auth([ROLES.ADMIN,ROLES.TEACHER,ROLES.STUDENT])
             id: _id,
             name,
             grades: [
-                ...studentGrades.filter(({subjectID}) => subjectID.toString() === _id.toString()).map(({value, professorID}) => ({value}))
+                ...studentGrades.filter(({subjectID}) => subjectID.toString() === _id.toString()).map(({value, gradedBy}) => ({value,gradedBy}))
             ]
         })));
    } catch (e){
@@ -38,7 +38,13 @@ router.get('/student-grades/:id',auth([ROLES.ADMIN,ROLES.TEACHER,ROLES.STUDENT])
 
 router.post('/add', auth([ROLES.ADMIN, ROLES.TEACHER]), async ({body}, res) =>{
     try{
-        const newGrade = await Grade({...body});
+        const professor = await User.findById(body.professorID);
+        const newGrade = await Grade(
+            {
+                ...body,
+                gradedBy: `${professor.name} ${professor.surname}`
+            });
+
         const savedGrade = await newGrade.save();
         res.json({savedGrade});
     }catch(e){

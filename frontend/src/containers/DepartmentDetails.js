@@ -54,7 +54,7 @@ const DepartmentDetails = () => {
           <Row className="w-100 m-0">
             <Col xs={12} className="d-flex justify-content-end align-items-center" />
             <Col xs={12} className="department-details-title pb-3 d-flex align-items-center justify-content-between">
-              <span>{details.name}</span>
+              <span className="department-name">{details.name}</span>
               <span>
                 {`Average: ${details?.students?.length ? roundToTwoDecimals(
                   details.students.reduce((acc, { gradeAverage }) => acc + gradeAverage, 0) / details.students.length,
@@ -63,11 +63,11 @@ const DepartmentDetails = () => {
             </Col>
             {details?.students?.length ? (
               <>
-                <Col xs={12} className="d-flex justify-content-between align-items-center">
+                <Col xs={12} className="d-block d-sm-flex pb-3 pb-sm-0 justify-content-between align-items-center">
                   <span>
                     Click the student for overview
                   </span>
-                  <div className="d-flex">
+                  <div className="d-flex  justify-content-between">
                     <Button
                       className={cs('d-flex align-items-center back-to-departments-button', {
                         'mr-2': details?.students?.length,
@@ -107,7 +107,7 @@ const DepartmentDetails = () => {
                 ))}
               </>
             ) : (
-              <Col xs={12} className="d-flex justify-content-between align-items-center">
+              <Col xs={12} className="d-block d-sm-flex justify-content-between align-items-center">
                 <span>No students</span>
                 <Button
                   className={cs('d-flex align-items-center back-to-departments-button', {

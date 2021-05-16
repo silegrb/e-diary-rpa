@@ -20,9 +20,9 @@ const MyGrade = ({ name, grades = [] }) => {
         </Col>
         <Col xs={12}>
           <Collapse isOpen={isOpen}>
-            {grades.length ? grades.map(({ value }) => (
-              <div className="d-flex justify-content-between pl-5 mt-2">
-                <div className="d-flex align-items-center">Graded by: </div>
+            {grades.length ? grades.map(({ value, gradedBy }) => (
+              <div className="d-block d-sm-flex justify-content-between pl-5 mt-2">
+                <div className="d-flex align-items-center">{`Graded by: ${gradedBy}`}</div>
                 <MyGradeCircles value={value} />
               </div>
             )) : <div className="pl-5">No grades</div>}
