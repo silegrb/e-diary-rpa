@@ -10,6 +10,7 @@ import { fetchDepartmentDetails } from '../client/department';
 import { roundToTwoDecimals } from '../utils/calculations';
 import StudentDetailsModal from '../components/StudentDetailsModal';
 import GradeModal from '../components/GradeModal';
+import { fetchProfessorSubjects } from '../client/subject';
 
 const DepartmentDetails = () => {
   const history = useHistory();
@@ -19,12 +20,20 @@ const DepartmentDetails = () => {
   const [studentDetailsOpen, setStudentDetailsOpen] = useState(false);
   const [gradeModalOpen, setGradeModalOpen] = useState(false);
   const [student, setStudent] = useState(null);
+  const [professorSubjects, setProfessorSubjects] = useState([]);
+
+  const handleUpdateStudentsList = async () => {
+    const { data } = await fetchDepartmentDetails(id);
+    setDetails(data);
+  };
 
   useEffect(() => {
     (async () => {
       try {
         setLoading(true);
         const { data } = await fetchDepartmentDetails(id);
+        const { data: professorSubjectsData } = await fetchProfessorSubjects();
+        setProfessorSubjects(professorSubjectsData);
         setDetails(data);
         setLoading(false);
       } catch (e) {
@@ -117,7 +126,9 @@ const DepartmentDetails = () => {
       <GradeModal
         handleClose={() => setGradeModalOpen(false)}
         isOpen={gradeModalOpen}
-        students={details?.students}
+        students={details?.students || []}
+        subjects={professorSubjects}
+        handleUpdateStudentsList={handleUpdateStudentsList}
       />
     </Container>
   );

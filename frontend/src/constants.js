@@ -21,3 +21,5 @@ export const ROUTES = [
 export const URIS = {
   LOCAL_HOST: 'http://localhost:5000',
 };
+
+export const MODAL_WAIT_TIME = 2500;

@@ -1,10 +1,17 @@
+const { ROLES } = require('../constants');
 const router = require('express').Router();
 const auth = require('../middlewares/auth');
 const Subject = require('../models/SubjectModel');
 
-router.get('/', auth(['ROLE_ADMIN']), async(req,res) =>{
+router.get('/', auth(['ROLE_ADMIN', 'ROLE_TEACHER']), async({user},res) =>{
     try{
-        const subjects = await Subject.find();
+        let subjects;
+        if(user.role === ROLES.TEACHER){
+            subjects = await Subject.find({professorIDS: user.id});
+        }
+        else {
+            subjects = await Subject.find();
+        }
         res.json(subjects);
     }catch(e){
         res.status(400).json({message: e.message || 'Something went wrong'});

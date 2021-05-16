@@ -15,6 +15,7 @@ const Departments = () => {
 
   useEffect(() => {
     (async () => {
+      // TODO Add error handling
       setLoading(true);
       const { data } = await fetchDepartments();
       setDepartments(data);
