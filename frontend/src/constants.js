@@ -23,5 +23,3 @@ export const URIS = {
 };
 
 export const MODAL_WAIT_TIME = 2500;
-
-
