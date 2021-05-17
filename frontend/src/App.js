@@ -35,7 +35,7 @@ const App = () => {
   return (
     <div className="root">
       <div className="app-container d-flex flex-column">
-        <ToastContainer className="login-toaster" autoClose={2000} />
+        <ToastContainer className="toaster" autoClose={2000} />
         {role && <Navbar handleLogOut={handleLogOut} />}
         <Row className="w-100 flex-grow-1">
           <Col xs={12} lg={role ? 12 : 5} className="d-flex justify-content-center align-items-center pl-5">

@@ -7,7 +7,7 @@ import {
   Input,
   Row,
 } from 'reactstrap';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import { Fade } from 'react-reveal';
 import Loader from './Loader';
 import { postLogin } from '../client/auth';
@@ -41,7 +41,6 @@ const Login = ({ handleLogIn }) => {
     <Container>
       <Fade left className="w-100">
         <Card className="login-container d-flex justify-content-center align-items-center">
-          <ToastContainer className="toaster" autoClose={2000} />
           {loading ? <Loader />
             : (
               <Row>
