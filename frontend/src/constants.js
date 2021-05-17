@@ -4,7 +4,7 @@ export const ROLES = {
 };
 
 export const URIS = {
-  LOCAL_HOST: 'http://localhost:5000',
+  DEPLOYED: 'http://localhost:5000',
   DEPLOYED: 'https://rpa-e-diary-backend.herokuapp.com',
 };
 
